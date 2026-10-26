@@ -6,17 +6,8 @@
 <title>Free Python Course - Think Lab</title>
 <style>
 
-.brochure-row {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 15px;
-}
-
 .btn-brochure {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 auto;
     background: linear-gradient(135deg, #1769aa, #102a43);
     color: white;
     padding: 10px 16px;
@@ -25,11 +16,12 @@
     font-size: 13px;
     font-weight: 700;
     box-shadow: 0 4px 10px rgba(23, 105, 170, 0.2);
+    transition: transform 0.2s ease;
 }
 
 .btn-brochure:hover {
-    opacity: 0.92;
     transform: translateY(-2px);
+    opacity: 0.92;
 }
     
     :root {
@@ -103,6 +95,29 @@
     .btn-calendar:hover {
         background: #b5451b;
         transform: translateY(-1px);
+    }
+
+    .btn-pylab {
+        background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+        box-shadow: 0 4px 10px rgba(15, 118, 110, 0.2);
+    }
+    .btn-pylab:hover {
+        opacity: 0.92;
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 420px) {
+        .form-container {
+            padding: 20px 16px;
+        }
+        .nav-header {
+            gap: 8px;
+        }
+        .nav-btn,
+        .btn-brochure {
+            font-size: 12px;
+            padding: 9px 10px;
+        }
     }
 
     /* Live Registration Status Banner */
@@ -366,17 +381,21 @@
 </style>
 </head>
 <body>
-
-    <div class="form-container">
-<div class="brochure-row">
-    <h2>Python for newbies&nbsp;&nbsp;&nbsp;</h2>
+<div class="form-container">
+<div class="nav-header">
+    <a class="nav-btn btn-pylab"
+       href="https://pietraining.github.io/python/">
+        ← Back to PyLab
+    </a>
     <a class="btn-brochure"
        href="https://drive.google.com/file/d/1bmojy4Dx41MxXfHPWyyMZPM7c4EO2tIi/view?usp=drive_link"
        target="_blank"
        rel="noopener noreferrer">
-        📘 Brochure ↗
+        📘 Course Brochure ↗
     </a>
 </div>
+    
+
     <!-- Top Navigation Buttons -->
     <!-- <div class="nav-header">
         <a href="https://www.thinkingskill.in" class="nav-btn btn-thinklab">
@@ -393,8 +412,8 @@
         📊 Loading Live Registration Status...
     </div>
 
-    <!--<h2>Free Python Course</h2>
-    <p class="subtitle" id="formSubtitle">Please fill out your details below to enroll.</p>-->
+    <h2>Free Python Course</h2>
+    <p class="subtitle" id="formSubtitle">Please fill out your details below to enroll.</p>
 
     <!-- Hidden Iframe to guarantee submission recording without page navigation -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showSuccessMessage(); }"></iframe>
