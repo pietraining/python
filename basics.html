@@ -28,6 +28,9 @@ button{touch-action:manipulation}
 .eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#ccecff}
 .brochure-btn{border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.12);color:white;border-radius:999px;padding:9px 14px;font-size:.9rem;font-weight:750;cursor:pointer}
 .brochure-btn:hover{background:rgba(255,255,255,.22)}
+.pylab-btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.7);background:white;color:var(--navy);border-radius:999px;padding:9px 14px;font-size:.9rem;font-weight:800;text-decoration:none;white-space:nowrap}
+.pylab-btn:hover{background:#eaf5ff;color:var(--navy)}
+.top-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-left:auto}
 h1{font-size:clamp(2rem,6vw,3.1rem);line-height:1.08;letter-spacing:-.04em;margin:20px 0 10px}
 .hero-sub{font-size:clamp(.98rem,2.6vw,1.15rem);color:#e0f2ff;margin:0;max-width:650px}
 .journey{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:24px 0 0}
@@ -111,7 +114,10 @@ details[open] summary{border-bottom:1px solid var(--line)}
   <div class="header-inner">
     <div class="topline">
       <span class="eyebrow">Your first steps into coding</span>
-      <!--<button class="brochure-btn" type="button" onclick="showImage()">📘 Course Brochure</button>-->
+      <div class="top-actions">
+        <a class="pylab-btn" href="https://pietraining.github.io/python/" aria-label="Back to PyLab home">← Back to PyLab</a>
+        <button class="brochure-btn" type="button" onclick="showImage()">📘 Course Brochure</button>
+      </div>
     </div>
     <h1>Python Basics<br>4-Step Learning Journey</h1>
     <p class="hero-sub">Start small, ask questions, practise in your editor, and build projects one step at a time.</p>
