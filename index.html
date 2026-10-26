@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#103f83">
+<title>PyLab | Python Learning Lab by Think Lab</title>
+<meta name="description" content="Step by step from Python basics to Object-Oriented Programming and Pygame. Explore the PyLab learning pathway and current schedule.">
+<style>
+:root{--navy:#103f83;--blue:#0879c9;--green:#168447;--purple:#7135bd;--gold:#ffd629;--ink:#20334b;--muted:#617187;--pale:#f3f8fd;--line:#dbe6f0;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.6;background:#fff}a{color:inherit;text-decoration:none}.container{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0}.brand{display:flex;align-items:center;gap:11px;color:var(--navy);font-size:1.35rem;font-weight:900}.brand-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--navy);color:var(--gold);font:800 1.15rem monospace}.brand small{display:block;font-size:.68rem;letter-spacing:1px;color:var(--muted)}.nav-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:.92rem;font-weight:700}.nav-links a:not(.btn):hover{color:var(--blue)}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:12px 19px;border-radius:9px;font-weight:800;border:2px solid transparent;transition:transform .2s,background .2s;cursor:pointer}.btn:hover{transform:translateY(-2px)}.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#116b39}.btn-outline{border-color:#b8c9d8;color:var(--navy);background:#fff}.btn-outline:hover{background:var(--pale)}
+.hero{padding:72px 0 66px;background:radial-gradient(circle at 88% 15%,#d9f2ff 0,transparent 30%),linear-gradient(135deg,#fff 0%,#f0f8ff 100%)}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:46px}.eyebrow{display:inline-block;background:#e5f4eb;color:#116b39;border-radius:50px;padding:6px 13px;font-size:.8rem;font-weight:800;letter-spacing:.5px}h1{font-size:clamp(2.5rem,5vw,4.35rem);line-height:1.08;letter-spacing:-1.4px;color:var(--navy);margin:20px 0}h1 span{color:var(--blue)}.hero p{max-width:620px;color:var(--muted);font-size:1.1rem}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}.hero-note{font-size:.88rem!important;margin-top:17px}
+.code-window{background:#102a43;color:#edf6ff;border-radius:18px;padding:23px;box-shadow:0 24px 55px #102a432e}.window-top{display:flex;align-items:center;gap:7px;padding-bottom:17px;border-bottom:1px solid #34516b;margin-bottom:19px}.dot{width:10px;height:10px;border-radius:50%;background:#ffd34e}.dot:nth-child(2){background:#65c98a}.dot:nth-child(3){background:#65a9ee}.window-title{margin-left:auto;font-size:.8rem;color:#c5d7e7}.code{font: .94rem/2 Consolas,Monaco,monospace;overflow-wrap:anywhere}.comment{color:#91a9bd}.purple-code{color:#d6a8ff}.yellow-code{color:#f3d477}.green-code{color:#8ee2a7}.code-caption{margin-top:18px;padding-top:15px;border-top:1px solid #34516b;color:#c5d7e7;font-size:.85rem}
+section{padding:66px 0}.section-heading{text-align:center;max-width:760px;margin:0 auto 36px}.section-heading h2{font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.2;color:var(--navy);margin:0 0 12px}.section-heading p{color:var(--muted);margin:0}.path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.path-card{border:1px solid var(--line);border-radius:17px;padding:25px;background:#fff;box-shadow:0 7px 22px #102a4309;overflow:hidden}.path-card:hover{border-color:#a8c9e5;box-shadow:0 12px 28px #102a4310}.path-card.level1{border-top:5px solid var(--blue)}.path-card.level2{border-top:5px solid var(--green)}.path-card.level3{border-top:5px solid var(--purple)}.step{font-size:.79rem;font-weight:900;letter-spacing:1px;color:var(--muted)}.level-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:#edf6fd;font-size:1.7rem;margin:16px 0}.level2 .level-icon{background:#e9f7ee}.level3 .level-icon{background:#f2eafe}.path-card h3{color:var(--navy);font-size:1.3rem;margin:0 0 7px}.level-range{font-weight:800;margin:0 0 12px!important;color:var(--blue)!important}.level2 .level-range{color:var(--green)!important}.level3 .level-range{color:var(--purple)!important}.path-card p{color:var(--muted);font-size:.96rem;margin:0}
+.schedule-section{background:var(--pale)}.schedule-card{max-width:900px;margin:auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(24px,4.5vw,42px);display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px;box-shadow:0 12px 35px #102a430b}.schedule-label{display:inline-block;background:#e4f4eb;color:#116b39;padding:5px 11px;border-radius:50px;font-size:.78rem;font-weight:900}.schedule-card h2{color:var(--navy);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.2;margin:14px 0 10px}.schedule-card p{color:var(--muted);margin:0}.schedule-action{min-width:220px;text-align:center}.schedule-action p{font-size:.8rem;margin-top:10px}.schedule-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}.schedule-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px}.schedule-item strong{display:block;color:var(--navy);margin-bottom:4px}.schedule-item span{font-size:.9rem;color:var(--muted)}.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.feature{padding:10px 5px}.feature-icon{font-size:1.8rem}.feature h3{color:var(--navy);margin:10px 0 6px}.feature p{color:var(--muted);margin:0}.community{background:var(--navy);color:#fff;text-align:center;padding:56px 20px}.community h2{font-size:clamp(1.8rem,3vw,2.4rem);margin:0 0 12px}.community p{color:#d3e1ed;max-width:680px;margin:0 auto 24px}.community .btn{background:var(--gold);color:var(--navy)}footer{padding:24px 0;border-top:1px solid var(--line)}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.88rem}footer a{color:var(--blue);font-weight:700}
+@media(max-width:760px){.nav{align-items:flex-start;flex-direction:column}.nav-links{gap:12px;font-size:.86rem}.nav-links .btn{padding:9px 12px}.hero{padding:48px 0}.hero-grid{grid-template-columns:1fr;gap:30px}section{padding:48px 0}.path-grid,.features,.schedule-list{grid-template-columns:1fr}.schedule-card{grid-template-columns:1fr;gap:22px}.schedule-action{text-align:left}.schedule-action .btn{width:100%}.footer-inner{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="container nav">
+  <a class="brand" href="#home" aria-label="PyLab home"><span class="brand-mark">&lt;/&gt;</span><span>PyLab<small>PYTHON LEARNING LAB</small></span></a>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a href="#home">Home</a><a href="#pathway">Learning Path</a><a href="#schedule">Schedule</a><a href="https://www.thinkingskill.in/">Think Lab</a>
+    <a class="btn btn-green" href="https://www.thinkingskill.in/pygame">Schedule &amp; Register</a>
+  </nav>
+</div></header>
+<main>
+<section class="hero" id="home"><div class="container hero-grid">
+  <div><span class="eyebrow">A THINK LAB LEARNING PATHWAY</span>
+    <h1>Step by Step…<br>From Python Basics<br>to <span>OOP &amp; Pygame</span></h1>
+    <p>Welcome to PyLab — learn Python from the ground up, understand Object-Oriented Programming, and put your skills into action by creating games with Pygame.</p>
+    <div class="hero-actions"><a class="btn btn-green" href="https://www.thinkingskill.in/pygame">View Schedule &amp; Register →</a><a class="btn btn-outline" href="#pathway">Explore the 3 Levels</a></div>
+    <p class="hero-note">Learn • Practise • Create • Grow</p>
+  </div>
+  <div class="code-window" aria-label="Python code example"><div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="window-title">hello_pylab.py</span></div>
+    <div class="code"><div class="comment"># Every creator starts somewhere</div><div><span class="purple-code">def</span> <span class="yellow-code">start_learning</span>():</div><div>&nbsp;&nbsp;return <span class="green-code">"Hello, PyLab!"</span></div><br><div>print(start_learning())</div></div>
+    <div class="code-caption">Start with a simple program. Build towards your own games.</div>
+  </div>
+</div></section>
+<section id="pathway"><div class="container">
+  <div class="section-heading"><h2>Your Learning Journey</h2><p>Three clear levels take you step by step from your first Python program to making games.</p></div>
+  <div class="path-grid">
+    <article class="path-card level1"><span class="step">LEVEL 1</span><div class="level-icon">🐍</div><h3>Zero → Basics</h3><p class="level-range">Python Fundamentals</p><p>Learn Python fundamentals and start coding. Build a strong foundation with essential programming concepts and simple programs.</p></article>
+    <article class="path-card level2"><span class="step">LEVEL 2</span><div class="level-icon">🧩</div><h3>Basics → OOP</h3><p class="level-range">Object-Oriented Programming</p><p>Learn Python Object-Oriented Programming (OOP), and understand how classes and objects help organise your code.</p></article>
+    <article class="path-card level3"><span class="step">LEVEL 3</span><div class="level-icon">🎮</div><h3>OOP → Pygame</h3><p class="level-range">Create Your Own Games</p><p>Build games with the Pygame package. Explore game logic, movement, interaction and creative possibilities through hands-on projects.</p></article>
+  </div>
+</div></section>
+<section class="schedule-section" id="schedule"><div class="container">
+  <div class="section-heading"><h2>Current Schedule &amp; Registration</h2><p>See the current programme details and register through the official PyLab schedule page.</p></div>
+  <div class="schedule-card"><div><span class="schedule-label">CHECK THE CURRENT BATCH</span><h2>Ready to start your Python journey?</h2><p>Explore the schedule for Python Basics, Python OOP and Pygame. The registration page has the latest programme information.</p></div><div class="schedule-action"><a class="btn btn-green" href="https://www.thinkingskill.in/pygame">Open Schedule &amp; Register →</a><p>thinkingskill.in/pygame</p></div></div>
+  <div class="schedule-list"><div class="schedule-item"><strong>Level 1 · Python Basics</strong><span>Begin with the fundamentals.</span></div><div class="schedule-item"><strong>Level 2 · Python OOP</strong><span>Move from basics to OOP.</span></div><div class="schedule-item"><strong>Level 3 · Pygame</strong><span>Apply your skills to game creation.</span></div></div>
+</div></section>
+<section id="approach"><div class="container"><div class="section-heading"><h2>More Than Just Learning Code</h2><p>PyLab combines programming practice with thinking, creativity and thoughtful use of AI.</p></div>
+  <div class="features"><div class="feature"><div class="feature-icon">🧠</div><h3>Think &amp; Solve</h3><p>Break problems into manageable steps and explore possible solutions.</p></div><div class="feature"><div class="feature-icon">🛠️</div><h3>Learn by Creating</h3><p>Practise programming concepts through hands-on projects and interactive games.</p></div><div class="feature"><div class="feature-icon">🤖</div><h3>Use AI Thoughtfully</h3><p>Use AI as a learning helper while developing your own understanding and coding confidence.</p></div></div>
+</div></section>
+<section class="community"><div class="container"><h2>Practise Python. Build Confidence. Grow with Us!</h2><p>Take the next step from learning the basics to building your own games.</p><a class="btn" href="https://www.thinkingskill.in/pygame">Check Schedule &amp; Register →</a></div></section>
+</main>
+<footer><div class="container footer-inner"><div><strong>PyLab</strong> · Python Learning Lab by Think Lab</div><div><a href="https://www.thinkingskill.in/">Visit Think Lab</a> &nbsp;·&nbsp; <a href="https://www.thinkingskill.in/pygame">Schedule &amp; Registration</a></div></div></footer>
+</body></html>
