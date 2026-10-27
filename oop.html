@@ -1,0 +1,1058 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123B5D">
+<title>Python OOP — AI-Assisted Learning Journey</title>
+
+<style>
+:root {
+  --navy:#123b5d;
+  --blue:#1676b8;
+  --blue-light:#eaf5ff;
+  --teal:#087f8c;
+  --green:#18794e;
+  --green-light:#eaf8f0;
+  --gold:#f4b942;
+  --ink:#203040;
+  --muted:#617184;
+  --page:#f3f7fb;
+  --line:#d9e4ee;
+  --code:#17212b;
+  --shadow:0 10px 28px rgba(18,59,93,.09);
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  background:var(--page);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  line-height:1.6;
+}
+button,a { font:inherit; }
+a { color:#0869a8; overflow-wrap:anywhere; }
+a:hover { color:#034b7a; }
+.site-header {
+  background:linear-gradient(135deg,#102f4b,#176ca5);
+  color:white;
+  padding:26px 16px 24px;
+  position:relative;
+  overflow:hidden;
+}
+.site-header:after {
+  content:"";
+  position:absolute;
+  width:240px;height:240px;
+  border:35px solid rgba(255,255,255,.07);
+  border-radius:50%;
+  right:-70px;top:-110px;
+  pointer-events:none;
+}
+.header-inner,.container {
+  width:min(100% - 28px,900px);
+  margin-inline:auto;
+}
+.header-inner { position:relative;z-index:1; }
+.topline {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.eyebrow {
+  font-size:.78rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:800;
+  color:#ccecff;
+}
+.top-actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-left:auto;
+}
+.header-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.7);
+  background:white;
+  color:var(--navy);
+  border-radius:999px;
+  padding:9px 14px;
+  font-size:.9rem;
+  font-weight:800;
+  text-decoration:none;
+  cursor:pointer;
+}
+.header-btn:hover { background:#eaf5ff;color:var(--navy); }
+h1 {
+  font-size:clamp(2rem,6vw,3.1rem);
+  line-height:1.1;
+  letter-spacing:-.04em;
+  margin:22px 0 10px;
+}
+.hero-sub {
+  font-size:clamp(.98rem,2.6vw,1.15rem);
+  color:#e0f2ff;
+  margin:0;
+  max-width:700px;
+}
+.journey {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:24px 0 0;
+}
+.journey-item {
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:12px;
+  text-align:center;
+  color:#e8f5ff;
+  font-size:.95rem;
+  font-weight:800;
+  cursor:pointer;
+}
+.journey-item.active {
+  background:white;
+  color:var(--navy);
+  border-color:white;
+}
+.journey-item .num {
+  display:grid;
+  place-items:center;
+  width:30px;height:30px;
+  margin:0 auto 5px;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+}
+.journey-item.active .num {
+  background:var(--gold);
+  color:#2e2b21;
+}
+.container { padding:22px 0 38px; }
+.progress-card {
+  background:white;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:15px 16px;
+  margin-bottom:16px;
+}
+.progress-label {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  font-size:.9rem;
+  font-weight:800;
+  color:var(--navy);
+  margin-bottom:9px;
+}
+.progress-bar {
+  height:9px;
+  background:#e4ebf2;
+  border-radius:99px;
+  overflow:hidden;
+}
+.progress-fill {
+  height:100%;
+  width:50%;
+  background:linear-gradient(90deg,var(--teal),#40b8a8);
+  border-radius:99px;
+  transition:width .25s ease;
+}
+.step-box {
+  display:none;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:clamp(17px,4vw,30px);
+  box-shadow:var(--shadow);
+  animation:appear .22s ease;
+}
+.step-box.active { display:block; }
+@keyframes appear {
+  from { opacity:.5;transform:translateY(4px); }
+  to { opacity:1;transform:translateY(0); }
+}
+.step-kicker {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  color:var(--blue);
+  background:var(--blue-light);
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:850;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+h2 {
+  font-size:clamp(1.45rem,4vw,2rem);
+  line-height:1.2;
+  letter-spacing:-.025em;
+  color:var(--navy);
+  margin:14px 0 10px;
+}
+h3 {
+  font-size:1.12rem;
+  line-height:1.3;
+  color:var(--navy);
+  margin:0 0 8px;
+}
+p { margin:9px 0 14px; }
+.intro { color:var(--muted);font-size:1.02rem;margin-bottom:22px; }
+.task,.topic {
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px;
+  margin:14px 0;
+  background:white;
+}
+.task-heading {
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.task-number {
+  flex:0 0 32px;
+  width:32px;height:32px;
+  border-radius:10px;
+  background:var(--blue-light);
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+  font-weight:900;
+}
+.task p:last-child { margin-bottom:0; }
+.checklist { list-style:none;padding:0;margin:10px 0 0; }
+.checklist li {
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin:10px 0;
+}
+.checklist input {
+  width:19px;height:19px;
+  margin-top:4px;
+  accent-color:var(--teal);
+  flex:0 0 auto;
+}
+.checklist label { flex:1; }
+.link-box {
+  background:#f0f8ff;
+  border:1px solid #c6e4fa;
+  padding:15px;
+  border-radius:13px;
+  margin:14px 0;
+}
+.link-box ul,.link-box ol { padding-left:22px; }
+.link-box li { margin:7px 0; }
+.tip,.success,.warning {
+  padding:13px 15px;
+  border-radius:10px;
+  margin:15px 0;
+}
+.tip { background:#fff7df;border-left:4px solid var(--gold); }
+.success { background:var(--green-light);border-left:4px solid #2b9b66; }
+.warning { background:#fff1e9;border-left:4px solid #e58b42; }
+.topic {
+  background:#fbfdff;
+  border-left:5px solid var(--blue);
+}
+.topic:nth-of-type(even) { border-left-color:var(--teal); }
+.topic-title {
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.topic-number {
+  display:grid;
+  place-items:center;
+  width:30px;height:30px;
+  flex:0 0 30px;
+  border-radius:9px;
+  background:#e5f5f2;
+  color:#087f75;
+  font-weight:900;
+}
+.tag {
+  display:inline-block;
+  background:#eaf5ff;
+  color:#145985;
+  padding:3px 8px;
+  border-radius:6px;
+  font-size:.8rem;
+  font-weight:750;
+  margin:2px 3px 2px 0;
+}
+pre {
+  background:var(--code);
+  color:#f1f6fb;
+  padding:16px 13px;
+  border-radius:12px;
+  overflow:auto;
+  max-width:100%;
+  font:.88rem/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;
+  tab-size:4;
+  margin:10px 0 14px;
+  white-space:pre;
+}
+.code-label {
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:12px;
+}
+.copy-btn {
+  float:right;
+  border:1px solid #60788a;
+  background:#253746;
+  color:white;
+  border-radius:7px;
+  padding:5px 9px;
+  font-size:.78rem;
+  cursor:pointer;
+}
+.inline-code {
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  background:#eef3f8;
+  color:#9b2c2c;
+  border-radius:5px;
+  padding:2px 5px;
+  overflow-wrap:anywhere;
+}
+details {
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin:14px 0;
+  background:white;
+  overflow:hidden;
+}
+summary {
+  cursor:pointer;
+  padding:14px 16px;
+  font-weight:800;
+  color:var(--navy);
+  background:#f5f9fc;
+}
+.details-body { padding:14px 16px; }
+details[open] summary { border-bottom:1px solid var(--line); }
+.prompt {
+  border:1px dashed #91b9d7;
+  background:#f5faff;
+  padding:13px;
+  border-radius:10px;
+  margin:10px 0;
+}
+.prompt p { margin:0; }
+.btn-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin:18px 0 0;
+}
+.btn {
+  min-height:46px;
+  padding:11px 20px;
+  border:0;
+  border-radius:10px;
+  font-weight:850;
+  cursor:pointer;
+  font-size:1rem;
+}
+.btn-prev { background:#e2eaf1;color:#263e51; }
+.btn-next { background:var(--blue);color:white;margin-left:auto; }
+.btn:disabled { opacity:.42;cursor:not-allowed; }
+.step-status { font-size:.86rem;color:var(--muted);font-weight:700; }
+.site-footer {
+  text-align:center;
+  color:var(--muted);
+  font-size:.85rem;
+  padding:18px 10px 8px;
+}
+@media(max-width:520px) {
+  .site-header { padding-top:20px; }
+  .header-inner,.container { width:min(100% - 20px,900px); }
+  .journey { gap:6px; }
+  .journey-item { font-size:.82rem;padding:10px 5px; }
+  .step-box { border-radius:15px; }
+  .task,.topic { padding:13px; }
+  pre { font-size:.81rem;padding:13px 10px; }
+  .btn { padding:10px 13px; }
+  .step-status { font-size:.78rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="topline">
+      <span class="eyebrow">Think • Explore • Build</span>
+      <div class="top-actions">
+        <a class="header-btn"
+           href="https://pietraining.github.io/python/">
+          ← Back to PyLab
+        </a>
+      </div>
+    </div>
+
+    <h1>Python OOP<br>AI-Assisted Learning Journey</h1>
+    <p class="hero-sub">
+      Understand object-oriented thinking, learn with your AI Tutor,
+      experiment in VS Code, and turn concepts into projects.
+    </p>
+
+    <div class="journey" aria-label="Two learning stages">
+      <button class="journey-item active" data-step="1"
+              type="button" aria-current="step">
+        <span class="num">1</span>
+        AI Tutor Setup
+      </button>
+      <button class="journey-item" data-step="2" type="button">
+        <span class="num">2</span>
+        Concepts to Project
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="progress-card" aria-label="Learning progress">
+    <div class="progress-label">
+      <span id="progressTitle">Stage 1 of 2 · AI Tutor Setup</span>
+      <span id="progressPercent">50%</span>
+    </div>
+    <div class="progress-bar" role="progressbar"
+         aria-valuemin="0" aria-valuemax="100"
+         aria-valuenow="50" id="progressBar">
+      <div class="progress-fill" id="fill"></div>
+    </div>
+  </section>
+
+  <!-- STAGE 1: AI TUTOR SETUP -->
+
+  <section class="step-box active" id="s1" aria-labelledby="step1title">
+    <span class="step-kicker">🧠 Stage 1 · Learn with AI</span>
+    <h2 id="step1title">Set Up Your Python OOP AI Tutor</h2>
+
+    <p class="intro">
+      Your Python environment is already installed.
+      Now prepare an AI Tutor that helps you understand OOP,
+      ask better questions, explore examples and learn from your experiments.
+    </p>
+
+    <div class="task">
+      <div class="task-heading">
+        <span class="task-number">1</span>
+        <div>
+          <h3>Open NotebookLM</h3>
+          <p>Use NotebookLM as a learning companion grounded in your selected sources.</p>
+        </div>
+      </div>
+      <ol class="checklist">
+        <li>
+          <input type="checkbox" id="a1">
+          <label for="a1">
+            Open <a href="https://notebooklm.google.com/"
+            target="_blank" rel="noopener">NotebookLM</a>
+            and sign in with your Google account.
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="a2">
+          <label for="a2">Click <strong>New notebook</strong>.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="a3">
+          <label for="a3">
+            Name it <strong>Python OOP — AI Learning Tutor</strong>.
+          </label>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task">
+      <div class="task-heading">
+        <span class="task-number">2</span>
+        <div>
+          <h3>Add Your Learning Sources</h3>
+          <p>Use the syllabus and official Python documentation as your learning foundation.</p>
+        </div>
+      </div>
+
+      <ol class="checklist">
+        <li>
+          <input type="checkbox" id="b1">
+          <label for="b1">
+            <strong>Source 1 — OOP syllabus:</strong>
+            Upload the Object-Oriented Programming in Python
+            syllabus document supplied for this course.
+            If it is not yet a file, save the syllabus as a PDF first.
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="b2">
+          <label for="b2">
+            <strong>Source 2 — Classes:</strong>
+            Add the official
+            <a href="https://docs.python.org/3/tutorial/classes.html"
+               target="_blank" rel="noopener">Python Classes tutorial</a>.
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="b3">
+          <label for="b3">
+            <strong>Source 3 — Special methods:</strong>
+            Add the official
+            <a href="https://docs.python.org/3/reference/datamodel.html"
+               target="_blank" rel="noopener">Python Data Model documentation</a>.
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="b4">
+          <label for="b4">
+            <strong>Source 4 — Abstract classes:</strong>
+            Add the
+            <a href="https://docs.python.org/3/library/abc.html"
+               target="_blank" rel="noopener">Abstract Base Classes documentation</a>.
+          </label>
+        </li>
+        <li>
+          <input type="checkbox" id="b5">
+          <label for="b5">
+            Check that your syllabus and the documentation
+            sources appear in your notebook.
+          </label>
+        </li>
+      </ol>
+
+      <div class="warning">
+        <strong>Important:</strong> Adding a website URL does not always
+        import every linked page. Check that the source is successfully
+        added and available to your notebook.
+      </div>
+    </div>
+
+    <div class="link-box">
+      <h3>📚 Your OOP Learning Resources</h3>
+      <ul>
+        <li>
+          <a href="https://docs.python.org/3/tutorial/classes.html"
+             target="_blank" rel="noopener">Classes and objects</a>
+        </li>
+        <li>
+          <a href="https://docs.python.org/3/library/abc.html"
+             target="_blank" rel="noopener">Abstract classes and methods</a>
+        </li>
+        <li>
+          <a href="https://docs.python.org/3/reference/datamodel.html"
+             target="_blank" rel="noopener">Special methods and operators</a>
+        </li>
+          <li>
+          <a href="https://docs.python.org/3/library/unittest.html"
+             target="_blank" rel="noopener">Testing Python programs</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="task">
+      <div class="task-heading">
+        <span class="task-number">3</span>
+        <div>
+          <h3>Give Your AI Tutor Learning Instructions</h3>
+          <p>
+            Copy the prompt below into your notebook's chat.
+            It establishes how you want to learn.
+          </p>
+        </div>
+      </div>
+
+      <div class="prompt">
+        <p id="tutorPrompt">Act as my patient Python OOP tutor. I already know Python basics and have VS Code installed. Teach me object-oriented programming step by step, following my five-session syllabus. Explain concepts in simple language, use practical examples, ask me questions, give small experiments, and help me understand errors. Do not simply give me complete solutions. First help me reason about the problem, then let me attempt the code. Explain inheritance, polymorphism, encapsulation, abstraction, special methods, composition, design patterns and testing accurately. Distinguish Python's actual behaviour from concepts borrowed from other programming languages. Help me verify every example by running it in VS Code.</p>
+      </div>
+      <button class="btn btn-next" type="button"
+              onclick="copyText('tutorPrompt',this)">
+        Copy Tutor Instructions
+      </button>
+    </div>
+
+    <div class="task">
+      <div class="task-heading">
+        <span class="task-number">4</span>
+        <div>
+          <h3>Test Your AI Tutor</h3>
+          <p>Begin with questions that build understanding before you start coding.</p>
+        </div>
+      </div>
+
+      <div class="prompt">
+        <p><strong>Question 1:</strong> Explain the difference between a class and an object using a real-world example.</p>
+      </div>
+      <div class="prompt">
+        <p><strong>Question 2:</strong> Give me a tiny Python class example. Explain each line and ask me to predict the output before revealing it.</p>
+      </div>
+      <div class="prompt">
+        <p><strong>Question 3:</strong> Give me one short OOP exercise without its solution. Review my attempt and explain how I can improve it.</p>
+      </div>
+    </div>
+
+    <div class="success">
+      <strong>Stage 1 complete?</strong>
+      You have a dedicated OOP notebook, learning sources,
+      tutor instructions and your first questions.
+      Move to Stage 2 to connect concepts with practice and projects.
+    </div>
+  </section>
+
+  <!-- STAGE 2: CONCEPTS TO PROJECT -->
+
+  <section class="step-box" id="s2" aria-labelledby="step2title">
+    <span class="step-kicker">🛠️ Stage 2 · Explore and build</span>
+    <h2 id="step2title">Concepts to Project</h2>
+
+    <p class="intro">
+      Follow the five one-hour sessions in your syllabus.
+      For each concept, ask AI, predict what will happen, run the code
+      in VS Code, change something and explain the result in your own words.
+    </p>
+
+    <div class="link-box">
+      <h3>Your Working Method</h3>
+      <p><strong>ASK → UNDERSTAND → PREDICT → RUN → EXPERIMENT → EXPLAIN</strong></p>
+      <p>
+        AI assists your learning. You remain responsible for understanding,
+        testing and deciding whether the solution is appropriate.
+      </p>
+      <p>
+        Open your existing VS Code workspace and create a separate folder,
+        for example <code class="inline-code">PythonOOP</code>.
+        Save your experiments as individual Python files.
+      </p>
+    </div>
+
+    <!-- SESSION 1 -->
+
+    <div class="topic">
+      <div class="topic-title">
+        <span class="topic-number">1</span>
+        <div>
+          <h3>Session 1 — Introduction to OOP and Classes</h3>
+          <span class="tag">60 minutes</span>
+        </div>
+      </div>
+      <p>Learn how data and behaviour can be organised together.</p>
+      <ul>
+        <li>What is OOP? Benefits and core concepts.</li>
+        <li>Classes, objects, attributes and methods.</li>
+        <li>The <code class="inline-code">class</code> keyword and <code class="inline-code">__init__</code>.</li>
+        <li>Creating objects, dot notation and equality comparisons.</li>
+      </ul>
+
+      <div class="code-label">Experiment 1 — A simple class</div>
+      <pre><code>class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def introduce(self):
+        print(f"I am {self.name}. My score is {self.score}.")
+
+student1 = Student("Anu", 85)
+student2 = Student("Bala", 92)
+
+student1.introduce()
+print(student2.score)
+print(student1 == student2)</code></pre>
+
+      <details>
+        <summary>Explore with your AI Tutor</summary>
+        <div class="details-body">
+          <ul>
+            <li>What is the difference between <code class="inline-code">Student</code> and <code class="inline-code">student1</code>?</li>
+            <li>What does <code class="inline-code">self</code> refer to?</li>
+            <li>Why does <code class="inline-code">student1 == student2</code> evaluate to False here?</li>
+            <li>Modify the class to calculate a student's grade.</li>
+          </ul>
+          <p>Save and run the example in VS Code before changing it.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- SESSION 2 -->
+
+    <div class="topic">
+      <div class="topic-title">
+        <span class="topic-number">2</span>
+        <div>
+          <h3>Session 2 — Inheritance and Polymorphism</h3>
+          <span class="tag">60 minutes</span>
+        </div>
+      </div>
+      <ul>
+        <li>Single, multilevel and multiple inheritance.</li>
+        <li>Method overriding and polymorphism.</li>
+        <li>Method overloading approaches in Python.</li>
+        <li>Abstract classes and abstract methods.</li>
+      </ul>
+
+      <div class="code-label">Experiment 2 — Inheritance and overriding</div>
+      <pre><code>class Animal:
+    def speak(self):
+        print("An animal makes a sound.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Woof!")
+
+class Cat(Animal):
+    def speak(self):
+        print("Meow!")
+
+animals = [Dog(), Cat(), Animal()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+
+      <details>
+        <summary>Explore with your AI Tutor</summary>
+        <div class="details-body">
+          <ul>
+            <li>Which classes inherit from <code class="inline-code">Animal</code>?</li>
+            <li>Why does the same method call produce different behaviour?</li>
+            <li>What is method overriding?</li>
+            <li>Python does not support traditional signature-based method overloading in the same way as Java. Explore default arguments, variable arguments and other Python approaches.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <!-- SESSION 3 -->
+
+    <div class="topic">
+      <div class="topic-title">
+        <span class="topic-number">3</span>
+        <div>
+          <h3>Session 3 — Encapsulation and Abstraction</h3>
+          <span class="tag">60 minutes</span>
+        </div>
+      </div>
+      <ul>
+        <li>Data hiding and access conventions.</li>
+        <li>Properties, getters and setters.</li>
+        <li>Abstract classes and methods.</li>
+        <li>Interfaces as a design concept and Python's protocols.</li>
+      </ul>
+
+      <div class="code-label">Experiment 3 — Protecting valid data</div>
+      <pre><code>class BankAccount:
+    def __init__(self, balance=0):
+        self._balance = balance
+
+    @property
+    def balance(self):
+        return self._balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Amount must be positive.")
+        self._balance += amount
+
+account = BankAccount(100)
+account.deposit(50)
+print(account.balance)</code></pre>
+
+      <details>
+        <summary>Explore with your AI Tutor</summary>
+        <div class="details-body">
+          <ul>
+            <li>Why use <code class="inline-code">_balance</code> instead of a public attribute?</li>
+            <li>Does a single underscore make an attribute truly private in Python?</li>
+            <li>How could a property validate changes to the balance?</li>
+            <li>Explore <code class="inline-code">abc.ABC</code> and <code class="inline-code">abc.abstractmethod</code>.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <!-- SESSION 4 -->
+
+    <div class="topic">
+      <div class="topic-title">
+        <span class="topic-number">4</span>
+        <div>
+          <h3>Session 4 — Special Methods and Operators</h3>
+          <span class="tag">60 minutes</span>
+        </div>
+      </div>
+      <ul>
+        <li><code class="inline-code">__str__</code> and <code class="inline-code">__repr__</code>.</li>
+        <li><code class="inline-code">__len__</code> and <code class="inline-code">__getitem__</code>.</li>
+        <li><code class="inline-code">__add__</code> and <code class="inline-code">__sub__</code>.</li>
+        <li>Operator overloading and context managers.</li>
+      </ul>
+
+      <div class="code-label">Experiment 4 — Custom addition</div>
+      <pre><code>class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        return Vector(
+            self.x + other.x,
+            self.y + other.y
+        )
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+
+v1 = Vector(2, 3)
+v2 = Vector(4, 5)
+
+print(v1 + v2)</code></pre>
+
+      <details>
+        <summary>Explore with your AI Tutor</summary>
+        <div class="details-body">
+          <ul>
+            <li>How does Python interpret <code class="inline-code">v1 + v2</code>?</li>
+            <li>Why does <code class="inline-code">__add__</code> return a new Vector?</li>
+            <li>What should happen when someone adds a Vector to an incompatible object?</li>
+            <li>Explore the <code class="inline-code">with</code> statement and context managers.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <!-- SESSION 5 -->
+
+    <div class="topic">
+      <div class="topic-title">
+        <span class="topic-number">5</span>
+        <div>
+          <h3>Session 5 — Advanced OOP and Best Practices</h3>
+          <span class="tag">60 minutes</span>
+        </div>
+      </div>
+      <ul>
+        <li>Composition versus inheritance.</li>
+        <li>Creational, structural and behavioural design patterns.</li>
+        <li>Factory and Singleton pattern examples.</li>
+        <li>Code organisation, readable design and testing.</li>
+      </ul>
+
+      <div class="code-label">Experiment 5 — Composition</div>
+      <pre><code>class Engine:
+    def start(self):
+        print("Engine started.")
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()
+
+    def start(self):
+        self.engine.start()
+        print("Car is ready.")
+
+my_car = Car()
+my_car.start()</code></pre>
+
+      <details>
+        <summary>Explore with your AI Tutor</summary>
+        <div class="details-body">
+          <ul>
+            <li>How does a Car use an Engine?</li>
+            <li>Why might composition be better than inheritance here?</li>
+            <li>Ask AI to demonstrate a Factory pattern and explain when it is useful.</li>
+            <li>Write tests using Python's <code class="inline-code">unittest</code> module.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <!-- PROJECT -->
+
+    <h2>Your OOP Project</h2>
+    <p class="intro">
+      Apply what you have learned. Choose a small project and build it
+      incrementally instead of asking AI to generate the entire application
+      in one go.
+    </p>
+
+    <div class="task">
+      <h3>Suggested project — Student Learning Tracker</h3>
+      <p>Build a program that manages students, their subjects and their scores.</p>
+      <ol>
+        <li>Create a <code class="inline-code">Student</code> class with attributes and methods.</li>
+        <li>Represent subjects and scores using appropriate data structures.</li>
+        <li>Use inheritance only where it makes sense.</li>
+        <li>Apply encapsulation and validate score inputs.</li>
+        <li>Add useful special methods if needed.</li>
+        <li>Separate the program into suitable modules.</li>
+        <li>Write tests for important behaviour.</li>
+      </ol>
+    </div>
+
+    <div class="task">
+      <h3>Project workflow checklist</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" id="p1">
+          <label for="p1">Describe the problem and expected behaviour.</label></li>
+        <li><input type="checkbox" id="p2">
+          <label for="p2">Ask AI to suggest classes and their responsibilities.</label></li>
+        <li><input type="checkbox" id="p3">
+          <label for="p3">Review the proposed design before coding.</label></li>
+        <li><input type="checkbox" id="p4">
+          <label for="p4">Implement and run one feature at a time in VS Code.</label></li>
+        <li><input type="checkbox" id="p5">
+          <label for="p5">Test normal inputs, invalid inputs and edge cases.</label></li>
+        <li><input type="checkbox" id="p6">
+          <label for="p6">Refactor and ask AI to review the design.</label></li>
+        <li><input type="checkbox" id="p7">
+          <label for="p7">Explain the final program without relying on AI.</label></li>
+      </ul>
+    </div>
+
+    <div class="prompt">
+      <p><strong>Final AI review prompt:</strong> Review my Python OOP project. Identify design weaknesses, unnecessary inheritance, poor encapsulation, missing tests and opportunities for simpler code. Explain each issue and let me decide which improvements to implement.</p>
+    </div>
+
+    <div class="success">
+      <strong>🎉 Your learning goal</strong><br>
+      Understand the concepts, make informed design choices, verify AI-assisted
+      code and build a project that you can explain confidently.
+    </div>
+  </section>
+
+  <nav class="btn-row" aria-label="Learning stage navigation">
+    <button class="btn btn-prev" id="prevBtn"
+            type="button" onclick="goTo(1)">← Previous</button>
+    <span class="step-status" id="stepStatus"
+          aria-live="polite">Stage 1 of 2</span>
+    <button class="btn btn-next" id="nextBtn"
+            type="button" onclick="goTo(2)">Concepts to Project →</button>
+  </nav>
+
+  <footer class="site-footer">
+    Think first. Ask AI. Test your ideas. Build with understanding.
+  </footer>
+</main>
+
+<script>
+let cur = 1;
+
+const titles = [
+  "AI Tutor Setup",
+  "Concepts to Project"
+];
+
+function update() {
+  document.querySelectorAll(".step-box").forEach((box, i) => {
+    box.classList.toggle("active", i + 1 === cur);
+  });
+
+  document.querySelectorAll(".journey-item").forEach((item, i) => {
+    item.classList.toggle("active", i + 1 === cur);
+
+    if (i + 1 === cur) {
+      item.setAttribute("aria-current", "step");
+    } else {
+      item.removeAttribute("aria-current");
+    }
+  });
+
+  const percent = cur * 50;
+
+  document.getElementById("fill").style.width = percent + "%";
+  document.getElementById("progressTitle").textContent =
+    `Stage ${cur} of 2 · ${titles[cur - 1]}`;
+
+  document.getElementById("progressPercent").textContent =
+    percent + "%";
+
+  document.getElementById("progressBar")
+    .setAttribute("aria-valuenow", percent);
+
+  document.getElementById("stepStatus").textContent =
+    `Stage ${cur} of 2`;
+
+  document.getElementById("prevBtn").disabled = cur === 1;
+
+  const next = document.getElementById("nextBtn");
+
+  if (cur === 1) {
+    next.textContent = "Concepts to Project →";
+    next.disabled = false;
+  } else {
+    next.textContent = "✓ Learning Journey";
+    next.disabled = true;
+  }
+
+  try {
+    localStorage.setItem("python_oop_stage", String(cur));
+  } catch (e) {}
+}
+
+function goTo(stage) {
+  cur = stage;
+  update();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function copyText(elementId, button) {
+  const text = document.getElementById(elementId).innerText;
+  const oldText = button.textContent;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      button.textContent = "Copied!";
+      setTimeout(() => button.textContent = oldText, 1400);
+    }).catch(() => {
+      window.prompt("Copy the instructions below:", text);
+    });
+  } else {
+    window.prompt("Copy the instructions below:", text);
+  }
+}
+
+document.querySelectorAll(".journey-item").forEach(item => {
+  item.addEventListener("click", () => {
+    goTo(Number(item.dataset.step));
+  });
+});
+
+try {
+  const saved = parseInt(
+    localStorage.getItem("python_oop_stage"), 10
+  );
+
+  if (saved === 1 || saved === 2) cur = saved;
+} catch (e) {}
+
+update();
+</script>
+
+</body>
+</html>
+```
