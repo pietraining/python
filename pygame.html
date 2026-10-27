@@ -1,0 +1,942 @@
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python with Pygame & AI | Think Lab</title>
+
+<style>
+:root {
+  --navy: #102a43;
+  --blue: #1769aa;
+  --light-blue: #eaf4ff;
+  --gold: #f4bd50;
+  --green: #21865b;
+  --text: #243b53;
+  --muted: #627d98;
+  --border: #d9e2ec;
+  --white: #ffffff;
+  --background: #f5f8fc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+a {
+  color: var(--blue);
+  overflow-wrap: anywhere;
+}
+
+.hero {
+  background: linear-gradient(135deg, #102a43, #1769aa);
+  color: white;
+  padding: 38px 20px 32px;
+  text-align: center;
+}
+
+.hero .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #f4bd50;
+}
+
+.hero h1 {
+  margin: 8px 0;
+  font-size: clamp(27px, 5vw, 42px);
+  line-height: 1.2;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 12px auto;
+  font-size: 16px;
+  color: #e5eef8;
+}
+
+.hero .tagline {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.container {
+  width: min(100% - 28px, 1000px);
+  margin: 0 auto;
+}
+
+.top-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 22px auto;
+}
+
+.btn {
+  display: inline-block;
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 17px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: white;
+}
+
+.btn-light {
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.btn:hover {
+  filter: brightness(.96);
+}
+
+.stage-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px auto;
+}
+
+.stage-button {
+  padding: 17px 12px;
+  border: 2px solid var(--border);
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.stage-button span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 4px;
+}
+
+.stage-button.active {
+  background: var(--light-blue);
+  border-color: var(--blue);
+}
+
+.progress-wrap {
+  background: #d9e2ec;
+  border-radius: 20px;
+  height: 7px;
+  overflow: hidden;
+  margin: 14px 0 24px;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--green);
+  transition: width .25s;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  margin-top: -18px;
+}
+
+.panel {
+  display: none;
+  padding-bottom: 35px;
+}
+
+.panel.active {
+  display: block;
+}
+
+.section-title {
+  color: var(--navy);
+  font-size: 25px;
+  line-height: 1.3;
+  margin: 18px 0 8px;
+}
+
+.section-intro {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 3px 12px rgba(16, 42, 67, .035);
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  color: var(--navy);
+  font-size: 19px;
+}
+
+.card h4 {
+  margin: 15px 0 6px;
+  color: var(--blue);
+}
+
+.step-number {
+  display: inline-flex;
+  width: 31px;
+  height: 31px;
+  align-items: center;
+  justify-content: center;
+  background: var(--light-blue);
+  color: var(--blue);
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 7px;
+}
+
+.note {
+  border-left: 4px solid var(--gold);
+  background: #fff8e8;
+  padding: 12px 15px;
+  border-radius: 5px;
+  margin: 13px 0;
+}
+
+.tip {
+  border-left: 4px solid var(--green);
+  background: #edf9f2;
+  padding: 12px 15px;
+  border-radius: 5px;
+  margin: 13px 0;
+}
+
+ul, ol {
+  padding-left: 23px;
+}
+
+li {
+  margin: 5px 0;
+}
+
+.checklist {
+  list-style: none;
+  padding-left: 0;
+}
+
+.checklist li {
+  margin: 9px 0;
+}
+
+.checklist input {
+  margin-right: 8px;
+  accent-color: var(--green);
+}
+
+pre {
+  background: #102a43;
+  color: #f0f6fc;
+  padding: 16px;
+  border-radius: 9px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre;
+  margin: 12px 0;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.code-header strong {
+  color: var(--navy);
+}
+
+.copy-btn {
+  background: var(--light-blue);
+  border: 1px solid #c5dafa;
+  color: var(--blue);
+  border-radius: 7px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.prompt {
+  background: #f0f5fa;
+  border: 1px dashed #9fb3c8;
+  border-radius: 9px;
+  padding: 15px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+}
+
+details {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px 15px;
+  margin: 12px 0;
+  background: #ffffff;
+}
+
+summary {
+  color: var(--blue);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+details p:last-child {
+  margin-bottom: 3px;
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  margin: 15px 0;
+}
+
+.flow-item {
+  background: var(--light-blue);
+  color: var(--navy);
+  border-radius: 9px;
+  padding: 12px 7px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.flow-item small {
+  display: block;
+  font-weight: normal;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.library {
+  border: 1px solid var(--border);
+  padding: 15px;
+  border-radius: 10px;
+  background: white;
+}
+
+.library h3 {
+  margin-top: 0;
+}
+
+.library p {
+  margin-bottom: 8px;
+}
+
+.footer {
+  background: var(--navy);
+  color: #e5eef8;
+  padding: 25px 15px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.footer a {
+  color: #f4bd50;
+}
+
+.small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 30px 16px 25px;
+  }
+
+  .container {
+    width: min(100% - 22px, 1000px);
+  }
+
+  .stage-nav {
+    gap: 8px;
+  }
+
+  .stage-button {
+    padding: 13px 10px;
+    font-size: 13px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Python Learners Lounge · Think Lab</div>
+  <h1>Python with Pygame &amp; AI</h1>
+  <p>From Python concepts to interactive games — learn a library, explore ideas with AI, and build something of your own.</p>
+  <p class="tagline">Think First. Ask AI. Experiment. Create.</p>
+</header>
+
+<main class="container">
+
+  <div class="top-actions">
+    <a class="btn btn-light" href="https://pietraining.github.io/python/">
+      ← Back to PyLab
+    </a>
+    <a class="btn btn-primary" href="https://www.pygame.org/docs/">
+      Pygame Documentation ↗
+    </a>
+  </div>
+
+  <div class="stage-nav">
+    <button class="stage-button active" id="navTutor"
+      onclick="showStage('tutor')">
+      1. AI Tutor Setup
+      <span>Prepare your learning companion</span>
+    </button>
+
+    <button class="stage-button" id="navProject"
+      onclick="showStage('project')">
+      2. Concepts to Project
+      <span>Learn, experiment, and build</span>
+    </button>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="progress-text" id="progressText">Stage 1 of 2</div>
+
+  <!-- STAGE 1: AI TUTOR SETUP -->
+
+  <section class="panel active" id="tutor">
+
+    <h2 class="section-title">Set Up Your AI Learning Companion</h2>
+    <p class="section-intro">
+      Your AI tutor helps you understand Pygame, ask better questions,
+      investigate errors, and gradually build your own game.
+    </p>
+
+    <div class="card">
+      <h3><span class="step-number">1</span>Open an AI learning notebook</h3>
+      <p>Open <a href="https://notebooklm.google.com/" target="_blank" rel="noopener">Google NotebookLM</a> and create a notebook named:</p>
+      <p><strong>Python Pygame — My AI Learning Companion</strong></p>
+      <p>Add a few reliable learning sources so your AI tutor can refer to the documentation as you learn.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">2</span>Add learning resources</h3>
+      <p>Start with these official Pygame resources:</p>
+      <ul>
+        <li><a href="https://www.pygame.org/docs/" target="_blank" rel="noopener">Pygame documentation</a> — modules, functions, and reference.</li>
+        <li><a href="https://www.pygame.org/docs/tut/PygameIntro.html" target="_blank" rel="noopener">Pygame introduction</a> — an introduction to the library.</li>
+        <li><a href="https://www.pygame.org/wiki/GettingStarted" target="_blank" rel="noopener">Getting started with Pygame</a> — installation and first steps.</li>
+        <li><a href="https://www.pygame.org/docs/ref/event.html" target="_blank" rel="noopener">Event module</a> — keyboard, mouse, and other events.</li>
+        <li><a href="https://www.pygame.org/docs/ref/draw.html" target="_blank" rel="noopener">Drawing module</a> — shapes and drawing on the screen.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Tip:</strong> If NotebookLM cannot import a webpage, add a suitable downloaded document or paste relevant material into a document and upload it. Check that each source is actually available in your notebook.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">3</span>Give your AI tutor its instructions</h3>
+      <p>Copy the following prompt into your AI assistant. You can use it in NotebookLM or another AI tool.</p>
+
+      <div class="code-header">
+        <strong>AI Tutor Instructions</strong>
+        <button class="copy-btn" onclick="copyText('tutorPrompt', this)">Copy Prompt</button>
+      </div>
+
+      <div class="prompt" id="tutorPrompt">Act as my patient Python Pygame tutor and project companion.
+
+My Python basics are covered, and Python and VS Code are already installed. Help me learn Pygame by understanding concepts and building small projects step by step.
+
+Follow these principles:
+
+1. Explain one concept at a time in simple language.
+2. Connect each new concept to Python basics or object-oriented programming when useful.
+3. Use small, runnable examples before introducing a larger project.
+4. Ask me to predict what the code will do before I run it.
+5. Help me understand errors instead of simply replacing my code.
+6. Explain the game loop, display window, events, keyboard input, drawing, movement, frame rate, collision detection, scoring, images and sound.
+7. When suggesting code, explain important lines and design decisions.
+8. Encourage me to modify examples and observe the results.
+9. Help me build a complete game in small, testable steps.
+10. Do not give me the entire finished project immediately. Let me attempt each step, review my work, and improve it.
+11. Check current Pygame documentation when possible. Tell me when a feature or API needs verification.
+12. Explain how to install Pygame in my existing Python environment and how to diagnose import or interpreter problems if they arise.
+13. Help me test the game, handle edge cases, organize files, and explain my finished project in my own words.
+
+Begin by asking what I already understand about Python functions, classes, loops and events. Then help me run a minimal Pygame window before moving to the next concept.</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">4</span>Test your AI tutor</h3>
+      <p>Try these questions to begin your learning journey.</p>
+
+      <details>
+        <summary>Question 1 — What is Pygame?</summary>
+        <p>Ask your tutor to explain what Pygame adds to Python, what it is useful for, and how a Python program differs from a continuously running game.</p>
+      </details>
+
+      <details>
+        <summary>Question 2 — What happens inside a game loop?</summary>
+        <p>Ask your tutor to explain events, updating the game state, drawing the screen, and controlling the frame rate. Request a tiny example.</p>
+      </details>
+
+      <details>
+        <summary>Question 3 — How do I learn without copying?</summary>
+        <p>Ask your tutor to give you a small challenge, let you predict the result, and wait for your attempt before revealing a solution.</p>
+      </details>
+
+      <div class="tip">
+        <strong>Ready?</strong> Open the Concepts to Project stage when your AI tutor is prepared.
+      </div>
+
+      <button class="btn btn-primary" onclick="showStage('project')">
+        Continue to Concepts to Project →
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>Your setup checklist</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox"> Created my AI learning notebook.</label></li>
+        <li><label><input type="checkbox"> Added learning resources.</label></li>
+        <li><label><input type="checkbox"> Gave my AI tutor the instructions.</label></li>
+        <li><label><input type="checkbox"> Asked my first learning question.</label></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- STAGE 2: CONCEPTS TO PROJECT -->
+
+  <section class="panel" id="project">
+
+    <h2 class="section-title">Concepts to Project</h2>
+    <p class="section-intro">
+      You do not need to learn every Pygame function before building a game.
+      Learn a concept, experiment with it, and use it when your project needs it.
+    </p>
+
+    <div class="card">
+      <h3>Your AI-assisted learning cycle</h3>
+
+      <div class="flow">
+        <div class="flow-item">ASK<small>Explore a concept</small></div>
+        <div class="flow-item">UNDERSTAND<small>Explain it in your words</small></div>
+        <div class="flow-item">PREDICT<small>Think before running</small></div>
+        <div class="flow-item">RUN<small>Test the code</small></div>
+        <div class="flow-item">EXPERIMENT<small>Change and observe</small></div>
+        <div class="flow-item">CREATE<small>Build your project</small></div>
+      </div>
+
+      <div class="note">
+        <strong>Important:</strong> AI can make mistakes. Run the code, read error messages, check documentation, and understand each change before accepting it.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">1</span>Prepare your Pygame environment</h3>
+      <p>Use your existing VS Code and Python setup. Open the terminal in your project folder.</p>
+
+      <div class="code-header">
+        <strong>Install Pygame</strong>
+        <button class="copy-btn" onclick="copyText('installCode', this)">Copy Command</button>
+      </div>
+      <pre id="installCode">python -m pip install pygame</pre>
+
+      <p>On Windows, if the <code>python</code> command is unavailable, try <code>py -m pip install pygame</code>.</p>
+
+      <div class="code-header">
+        <strong>Check the installation</strong>
+        <button class="copy-btn" onclick="copyText('checkCode', this)">Copy Code</button>
+      </div>
+      <pre id="checkCode">python -c "import pygame; print(pygame.version.ver)"</pre>
+
+      <p>Create a project folder named <code>PygameProjects</code>. Keep each experiment or game in its own folder as your work grows.</p>
+
+      <details>
+        <summary>Ask your AI tutor if installation fails</summary>
+        <p>“Help me diagnose my Pygame installation in VS Code. Ask me to check the selected Python interpreter, terminal output, and exact error message. Give me one diagnostic step at a time.”</p>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">2</span>Open a game window</h3>
+      <p>First, understand how to initialize Pygame, create a display window, process quit events, and close the program cleanly.</p>
+
+      <div class="code-header">
+        <strong>First experiment: a minimal game window</strong>
+        <button class="copy-btn" onclick="copyText('windowCode', this)">Copy Code</button>
+      </div>
+
+      <pre id="windowCode">import pygame
+
+pygame.init()
+
+screen = pygame.display.set_mode((640, 400))
+pygame.display.set_caption("My First Pygame Window")
+
+clock = pygame.time.Clock()
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill((235, 245, 255))
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()</pre>
+
+      <p>Save this as <code>main.py</code> and run it using the Python interpreter selected in VS Code.</p>
+
+      <details>
+        <summary>Explore with your AI tutor</summary>
+        <ul>
+          <li>Why do we call <code>pygame.init()</code>?</li>
+          <li>Why does the program need a loop?</li>
+          <li>What happens if we remove the event-processing code?</li>
+          <li>What do <code>screen.fill()</code> and <code>pygame.display.flip()</code> do?</li>
+          <li>What is the purpose of <code>clock.tick(60)</code>?</li>
+        </ul>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">3</span>Learn the building blocks</h3>
+      <p>Work through these concepts using small experiments rather than memorizing a long list of functions.</p>
+
+      <details open>
+        <summary>A. Draw shapes, colours and text</summary>
+        <p>Learn RGB colour values, rectangles, circles, screen coordinates, fonts, and text rendering.</p>
+        <p><strong>Challenge:</strong> Draw a simple scene containing a sun, a house, and a tree. Change the colours and positions.</p>
+      </details>
+
+      <details>
+        <summary>B. Respond to keyboard and mouse input</summary>
+        <p>Learn the event queue, key presses, mouse clicks, and the difference between an event and a continuously held key.</p>
+        <p><strong>Challenge:</strong> Change a circle's colour when the user clicks it.</p>
+      </details>
+
+      <details>
+        <summary>C. Animate and move objects</summary>
+        <p>Learn coordinates, velocity, frame rate, and how game state changes over time.</p>
+        <p><strong>Challenge:</strong> Move a ball across the screen and make it bounce at the edges.</p>
+      </details>
+
+      <details>
+        <summary>D. Detect collisions and keep score</summary>
+        <p>Explore rectangles, collision detection, random positions, game rules, and score updates.</p>
+        <p><strong>Challenge:</strong> Make a player catch a falling object and increase the score.</p>
+      </details>
+
+      <details>
+        <summary>E. Add images, sound and game states</summary>
+        <p>Explore loading images and sounds, start screens, game-over screens, and restarting a game.</p>
+        <p><strong>Challenge:</strong> Add a sound when an object is caught and a message when the game ends.</p>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">4</span>Build your first complete project</h3>
+      <h4>Project: Catch the Falling Stars</h4>
+      <p>Build a small game in which the player moves a basket left and right to catch falling stars.</p>
+
+      <p><strong>Project requirements</strong></p>
+      <ul class="checklist">
+        <li><label><input type="checkbox"> Display a game window and a player-controlled basket.</label></li>
+        <li><label><input type="checkbox"> Move the basket using keyboard input.</label></li>
+        <li><label><input type="checkbox"> Make a star fall from the top of the screen.</label></li>
+        <li><label><input type="checkbox"> Detect a catch and increase the score.</label></li>
+        <li><label><input type="checkbox"> Handle missed stars and reset their positions.</label></li>
+        <li><label><input type="checkbox"> Add a time limit or a lives system.</label></li>
+        <li><label><input type="checkbox"> Show a start screen and a game-over screen.</label></li>
+        <li><label><input type="checkbox"> Test, improve, and explain the finished game.</label></li>
+      </ul>
+
+      <h4>Start with this prompt</h4>
+      <div class="code-header">
+        <strong>Project planning prompt</strong>
+        <button class="copy-btn" onclick="copyText('projectPrompt', this)">Copy Prompt</button>
+      </div>
+
+      <div class="prompt" id="projectPrompt">Help me plan a beginner-friendly Pygame project called "Catch the Falling Stars".
+
+The player controls a basket and catches falling stars to score points.
+
+Do not write the entire game at once.
+
+First:
+1. Help me list the game requirements.
+2. Identify the variables and game objects we need.
+3. Suggest a simple design for the game loop.
+4. Divide the project into small milestones.
+5. Give me the first milestone only.
+
+For each milestone, explain the concept, ask me to predict what should happen, help me implement it, and suggest tests. Wait for my attempt before moving forward.
+
+Help me understand the code well enough to modify and explain the final game myself.</div>
+
+      <div class="tip">
+        <strong>Build in small steps.</strong> First make the basket move. Then add one falling star. Next add collision detection and scoring. Add sound and visual polish only after the core game works.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="step-number">5</span>Review and improve with AI</h3>
+      <p>Once your game works, use AI to review it. Do not accept suggestions blindly.</p>
+
+      <div class="prompt" id="reviewPrompt">Review my Pygame project as a mentor.
+
+Do not rewrite the entire project immediately.
+
+Help me investigate:
+1. Does the game behave correctly?
+2. Are the event loop and game loop clear?
+3. Are movement and collision calculations correct?
+4. What happens at screen boundaries and unusual inputs?
+5. Is the code easy to understand and maintain?
+6. Are there repeated sections that can be simplified?
+7. What tests should I perform?
+8. Can I explain each important function and variable?
+
+Identify one improvement at a time, explain why it matters, and let me attempt the change.</div>
+
+      <div class="code-header">
+        <strong>Project review prompt</strong>
+        <button class="copy-btn" onclick="copyText('reviewPrompt', this)">Copy Prompt</button>
+      </div>
+
+      <ul class="checklist">
+        <li><label><input type="checkbox"> I can explain the game loop.</label></li>
+        <li><label><input type="checkbox"> I can modify the game without copying a complete solution.</label></li>
+        <li><label><input type="checkbox"> I tested collisions, boundaries, and game-over conditions.</label></li>
+        <li><label><input type="checkbox"> I can explain how AI helped and what I decided myself.</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Continue your Python library journey</h3>
+      <p>Pygame is one example of how to learn a Python library with AI. Different libraries help you solve different kinds of problems.</p>
+
+      <div class="library-grid">
+
+        <div class="library">
+          <h3>NumPy</h3>
+          <p><strong>Numerical computing</strong></p>
+          <p>Work with arrays, mathematical operations, and numerical data.</p>
+          <a href="https://numpy.org/learn/" target="_blank" rel="noopener">Explore NumPy ↗</a>
+        </div>
+
+        <div class="library">
+          <h3>Pandas</h3>
+          <p><strong>Data analysis</strong></p>
+          <p>Load, organize, filter, and analyse tabular data.</p>
+          <a href="https://pandas.pydata.org/docs/getting_started/" target="_blank" rel="noopener">Explore Pandas ↗</a>
+        </div>
+
+        <div class="library">
+          <h3>Matplotlib</h3>
+          <p><strong>Data visualization</strong></p>
+          <p>Turn data into line graphs, bar charts, scatter plots, and other visualizations.</p>
+          <a href="https://matplotlib.org/stable/users/index.html" target="_blank" rel="noopener">Explore Matplotlib ↗</a>
+        </div>
+
+        <div class="library">
+          <h3>Pygame</h3>
+          <p><strong>Games and interactive media</strong></p>
+          <p>Create animations, interactive scenes, and 2D games.</p>
+          <a href="https://www.pygame.org/docs/" target="_blank" rel="noopener">Explore Pygame ↗</a>
+        </div>
+
+        <div class="library">
+          <h3>Turtle</h3>
+          <p><strong>Drawing and geometry</strong></p>
+          <p>Learn coordinates, patterns, loops, and visual programming through drawing.</p>
+          <a href="https://docs.python.org/3/library/turtle.html" target="_blank" rel="noopener">Explore Turtle ↗</a>
+        </div>
+
+        <div class="library">
+          <h3>Pillow</h3>
+          <p><strong>Image processing</strong></p>
+          <p>Open, crop, resize, transform, and create images using Python.</p>
+          <a href="https://pillow.readthedocs.io/" target="_blank" rel="noopener">Explore Pillow ↗</a>
+        </div>
+
+        <div class="library">
+          <h3>Arcade</h3>
+          <p><strong>2D game development</strong></p>
+          <p>An alternative library for exploring sprites, game scenes, and interactive 2D games.</p>
+          <a href="https://api.arcade.academy/" target="_blank" rel="noopener">Explore Arcade ↗</a>
+        </div>
+
+        <div class="library">
+          <h3>Streamlit</h3>
+          <p><strong>Interactive data apps</strong></p>
+          <p>Turn Python scripts and data analysis into interactive web applications.</p>
+          <a href="https://docs.streamlit.io/" target="_blank" rel="noopener">Explore Streamlit ↗</a>
+        </div>
+
+      </div>
+
+      <div class="note">
+        <strong>Choose your next challenge:</strong> Ask your AI tutor to help you select a library based on an idea you want to build. Learn just enough of the library to make progress, then deepen your understanding through experimentation.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The real outcome</h3>
+      <p>You are not learning only Pygame. You are learning a repeatable method for approaching any unfamiliar Python library.</p>
+
+      <div class="flow">
+        <div class="flow-item">LEARN<small>Understand the concept</small></div>
+        <div class="flow-item">BUILD<small>Make a working feature</small></div>
+        <div class="flow-item">EXPLAIN<small>Own your understanding</small></div>
+      </div>
+
+      <p><strong>Use AI to extend your ability — not to replace your thinking.</strong></p>
+    </div>
+
+    <button class="btn btn-primary" onclick="showStage('tutor')">
+      ← Back to AI Tutor Setup
+    </button>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><strong>Python Learners Lounge · Think Lab</strong></p>
+  <p>Think first. Use AI thoughtfully. Learn by creating.</p>
+  <p><a href="https://www.thinkingskill.in" target="_blank" rel="noopener">www.thinkingskill.in</a></p>
+</footer>
+
+<script>
+function showStage(stage) {
+  const tutor = document.getElementById("tutor");
+  const project = document.getElementById("project");
+  const navTutor = document.getElementById("navTutor");
+  const navProject = document.getElementById("navProject");
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+
+  const isTutor = stage === "tutor";
+
+  tutor.classList.toggle("active", isTutor);
+  project.classList.toggle("active", !isTutor);
+  navTutor.classList.toggle("active", isTutor);
+  navProject.classList.toggle("active", !isTutor);
+
+  progressBar.style.width = isTutor ? "50%" : "100%";
+  progressText.textContent = isTutor ? "Stage 1 of 2" : "Stage 2 of 2";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function copyText(elementId, button) {
+  const element = document.getElementById(elementId);
+  const text = element.innerText || element.textContent;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      const original = button.textContent;
+      button.textContent = "Copied!";
+      setTimeout(() => button.textContent = original, 1500);
+    }).catch(() => fallbackCopy(text, button));
+  } else {
+    fallbackCopy(text, button);
+  }
+}
+
+function fallbackCopy(text, button) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    document.execCommand("copy");
+    const original = button.textContent;
+    button.textContent = "Copied!";
+    setTimeout(() => button.textContent = original, 1500);
+  } catch (error) {
+    alert("Copy was not available. Please select and copy the text manually.");
+  }
+
+  textarea.remove();
+}
+
+showStage("tutor");
+</script>
+
+</body>
+</html>
+```
+
