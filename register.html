@@ -614,7 +614,7 @@
 
     const VALID_BATCH_CODE = 'Py3110';
     // Registration deadline: 31st Oct 2026 at 5:00 PM IST (UTC+5:30)
-    const REGISTRATION_DEADLINE = new Date('2026-10-31T17:00:00+05:30');
+    const REGISTRATION_DEADLINE = new Date('2026-10-31T15:00:00+05:30');
 
     const batchCodeInput = document.getElementById('batchCode');
     const batchCodeMessage = document.getElementById('batchCodeMessage');
@@ -631,7 +631,7 @@
         if (isRegistrationClosed()) {
             batchCodeInput.disabled = true;
             submitBtn.disabled = true;
-            batchCodeMessage.textContent = '✗ Registration for batch Py3110 closed at 5:00 PM on 31st Oct 2026.';
+            batchCodeMessage.textContent = '✗ Registration for batch Py3110 closed at 3:00 PM on 31st Oct 2026.';
             batchCodeMessage.style.color = '#dc2626';
             submitBtn.innerText = 'Registration Closed';
             return false;
