@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -274,7 +273,6 @@
     }
 
     /* Registration statistics popup */
-
     .modal-overlay {
         display: none;
         position: fixed;
@@ -611,17 +609,34 @@
     let submitted = false;
 
     // ==========================================
-    // BATCH CODE VALIDATION
+    // BATCH CODE & DEADLINE VALIDATION
     // ==========================================
 
     const VALID_BATCH_CODE = 'Py3110';
+    // Registration deadline: 31st Oct 2026 at 5:00 PM IST (UTC+5:30)
+    const REGISTRATION_DEADLINE = new Date('2026-10-31T17:00:00+05:30');
 
     const batchCodeInput = document.getElementById('batchCode');
     const batchCodeMessage = document.getElementById('batchCodeMessage');
     const submitBtn = document.getElementById('submitBtn');
 
+    function isRegistrationClosed() {
+        return new Date() > REGISTRATION_DEADLINE;
+    }
+
     function validateBatchCode() {
         const enteredCode = batchCodeInput.value.trim();
+
+        // Check if deadline has passed
+        if (isRegistrationClosed()) {
+            batchCodeInput.disabled = true;
+            submitBtn.disabled = true;
+            batchCodeMessage.textContent = '✗ Registration for batch Py3110 closed at 5:00 PM on 31st Oct 2026.';
+            batchCodeMessage.style.color = '#dc2626';
+            submitBtn.innerText = 'Registration Closed';
+            return false;
+        }
+
         const isValid = enteredCode === VALID_BATCH_CODE;
 
         // Never enable submission while a request is in progress.
@@ -657,6 +672,11 @@
 
     // Validate again when the form is submitted.
     function handleRegistrationSubmit() {
+        if (isRegistrationClosed()) {
+            alert('Registration for this batch has closed.');
+            return false;
+        }
+
         if (!validateBatchCode()) {
             batchCodeInput.focus();
             return false;
@@ -718,6 +738,8 @@
     // ==========================================
 
     function resetForm() {
+        if (isRegistrationClosed()) return;
+
         submitted = false;
 
         const formElement = document.getElementById('registrationForm');
@@ -731,7 +753,6 @@
         document.getElementById('successContainer').style.display = 'none';
 
         // Reset the batch-code validation.
-        // The participant must enter Py3110 again.
         validateBatchCode();
 
         batchCodeInput.focus();
@@ -766,7 +787,6 @@
     // ==========================================
 
     function parseCSV(text) {
-        // CSV parser supporting quoted fields and commas.
         function parseCSVRows(csv) {
             const rows = [];
             let row = [];
@@ -834,12 +854,6 @@
         for (let i = 1; i < rows.length; i++) {
             const row = rows[i];
 
-            // Existing published sheet column mapping:
-            // row[1] = Full Name
-            // row[2] = Category
-            // row[3] = Choose the Modules
-            // row[4] = Country
-
             if (!row[1]) continue;
 
             total++;
@@ -905,8 +919,6 @@
     function openModal() {
         const modalBody = document.getElementById('modalBody');
 
-        // Build the popup using text nodes so participant names
-        // are displayed as text rather than interpreted as HTML.
         modalBody.replaceChildren();
 
         const totalSection = document.createElement('div');
@@ -989,7 +1001,7 @@
         }
     });
 
-    // Initial state: submission disabled until Py3110 is entered.
+    // Initial state check for deadline and batch code.
     validateBatchCode();
 
     // Load live registration statistics.
