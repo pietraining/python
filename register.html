@@ -389,23 +389,23 @@
 
 <div class="form-container">
 
-    <!-- Navigation -->
-    <div class="nav-header">
-        <a class="nav-btn btn-pylab"
-           href="https://pietraining.github.io/python/">
-            ← Back to PyLab
-        </a>
+    <!-- Active Form & Nav Wrapper -->
+    <div id="activeContentWrapper">
+        <!-- Navigation -->
+        <div class="nav-header">
+            <a class="nav-btn btn-pylab"
+               href="https://pietraining.github.io/python/">
+                ← Back to PyLab
+            </a>
 
-        <a class="btn-brochure"
-           href="https://drive.google.com/file/d/1bmojy4Dx41MxXfHPWyyMZPM7c4EO2tIi/view?usp=drive_link"
-           target="_blank"
-           rel="noopener noreferrer">
-            📘 Course Brochure ↗
-        </a>
-    </div>
+            <a class="btn-brochure"
+               href="https://drive.google.com/file/d/1bmojy4Dx41MxXfHPWyyMZPM7c4EO2tIi/view?usp=drive_link"
+               target="_blank"
+               rel="noopener noreferrer">
+                📘 Course Brochure ↗
+            </a>
+        </div>
 
-    <!-- Active Form Wrapper -->
-    <div id="activeFormContent">
         <!-- Live Registration Status -->
         <div class="stats-banner"
              id="statsBanner"
@@ -644,7 +644,7 @@
 
     function checkDeadline() {
         if (isRegistrationClosed()) {
-            document.getElementById('activeFormContent').style.display = 'none';
+            document.getElementById('activeContentWrapper').style.display = 'none';
             document.getElementById('closedContainer').style.display = 'block';
             return true;
         }
