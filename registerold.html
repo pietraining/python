@@ -272,6 +272,16 @@
         margin-bottom: 24px;
     }
 
+    /* Closed Registration Container */
+    .closed-container {
+        display: none;
+        text-align: center;
+        padding: 40px 10px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #b5451b;
+    }
+
     /* Registration statistics popup */
     .modal-overlay {
         display: none;
@@ -394,184 +404,192 @@
         </a>
     </div>
 
-    <!-- Live Registration Status -->
-    <div class="stats-banner"
-         id="statsBanner"
-         onclick="openModal()">
-        📊 Loading Live Registration Status...
-    </div>
-
-    <h2>Free Python Course</h2>
-
-    <p class="subtitle" id="formSubtitle">
-        Please fill out your details below to enroll.
-    </p>
-
-    <!-- Hidden iframe for Google Forms submission -->
-    <iframe
-        name="hidden_iframe"
-        id="hidden_iframe"
-        style="display:none;"
-        title="Registration submission"
-        onload="if(submitted) { showSuccessMessage(); }">
-    </iframe>
-
-    <!-- Registration Form -->
-    <form
-        id="registrationForm"
-        action="https://docs.google.com/forms/d/e/1FAIpQLSeRQBAZLN8KrDetU94mc1afDx6l7jNuNLNCVlgO_-g0the9LA/formResponse"
-        method="POST"
-        target="hidden_iframe"
-        onsubmit="return handleRegistrationSubmit();">
-
-        <!-- BATCH CODE VALIDATION -->
-        <div class="form-group">
-            <label for="batchCode">Batch Code</label>
-
-            <input
-                type="text"
-                id="batchCode"
-                placeholder="Enter your batch code"
-                autocomplete="off"
-                autocapitalize="off"
-                spellcheck="false"
-                required
-                aria-describedby="batchCodeMessage">
-
-            <small
-                id="batchCodeMessage"
-                class="batch-message"
-                aria-live="polite">
-                Enter the valid batch code to enable registration.
-            </small>
+    <!-- Active Form Wrapper -->
+    <div id="activeFormContent">
+        <!-- Live Registration Status -->
+        <div class="stats-banner"
+             id="statsBanner"
+             onclick="openModal()">
+            📊 Loading Live Registration Status...
         </div>
 
-        <!-- Full Name -->
-        <div class="form-group">
-            <label for="nameInput">Full Name</label>
+        <h2>Free Python Course</h2>
 
-            <input
-                type="text"
-                id="nameInput"
-                name="entry.1215900612"
-                placeholder="Enter your full name"
-                required>
-        </div>
-
-        <!-- Country -->
-        <div class="form-group">
-            <label for="countryInput">Country</label>
-
-            <input
-                type="text"
-                id="countryInput"
-                name="entry.2068278968"
-                placeholder="e.g. India, Singapore"
-                required>
-        </div>
-
-        <!-- Category -->
-        <div class="form-group">
-            <label for="categorySelect">Category</label>
-
-            <select
-                id="categorySelect"
-                name="entry.38679720"
-                required>
-                <option value="" disabled selected>
-                    Select your category
-                </option>
-                <option value="Working Professional">
-                    Working Professional
-                </option>
-                <option value="School Student">
-                    School Student
-                </option>
-                <option value="College Student">
-                    College Student
-                </option>
-                <option value="Educator">
-                    Educator
-                </option>
-            </select>
-        </div>
-
-        <!-- WhatsApp Number -->
-        <div class="form-group">
-            <label for="whatsappInput">WhatsApp Number</label>
-
-            <input
-                type="tel"
-                id="whatsappInput"
-                name="entry.995387167"
-                placeholder="e.g. +91 9876543210"
-                required>
-        </div>
-
-        <!-- Modules -->
-        <div class="form-group">
-            <label>
-                Choose the Modules (Select one or more)
-            </label>
-
-            <div class="checkbox-group">
-
-                <label class="checkbox-label">
-                    <input
-                        type="checkbox"
-                        name="entry.338072554"
-                        value="Introduction to Python">
-                    Introduction to Python
-                </label>
-
-                <label class="checkbox-label">
-                    <input
-                        type="checkbox"
-                        name="entry.338072554"
-                        value="Object Oriented Programming">
-                    Object Oriented Programming
-                </label>
-
-                <label class="checkbox-label">
-                    <input
-                        type="checkbox"
-                        name="entry.338072554"
-                        value="Pygame">
-                    Pygame
-                </label>
-
-            </div>
-        </div>
-
-        <!-- Submit -->
-        <button
-            type="submit"
-            id="submitBtn"
-            disabled>
-            Validate Batch Code First
-        </button>
-
-    </form>
-
-    <!-- Success Message -->
-    <div class="success-container" id="successContainer">
-
-        <div class="success-icon">✓</div>
-
-        <h3>Successfully Registered!</h3>
-
-        <p>
-            Thank you for enrolling in the Free Python Course.
-            Your details have been recorded successfully.
+        <p class="subtitle" id="formSubtitle">
+            Please fill out your details below to enroll.
         </p>
 
-        <button
-            type="button"
-            class="btn-secondary"
-            onclick="resetForm()">
-            Register Another Participant
-        </button>
+        <!-- Hidden iframe for Google Forms submission -->
+        <iframe
+            name="hidden_iframe"
+            id="hidden_iframe"
+            style="display:none;"
+            title="Registration submission"
+            onload="if(submitted) { showSuccessMessage(); }">
+        </iframe>
 
+        <!-- Registration Form -->
+        <form
+            id="registrationForm"
+            action="https://docs.google.com/forms/d/e/1FAIpQLSeRQBAZLN8KrDetU94mc1afDx6l7jNuNLNCVlgO_-g0the9LA/formResponse"
+            method="POST"
+            target="hidden_iframe"
+            onsubmit="return handleRegistrationSubmit();">
+
+            <!-- BATCH CODE VALIDATION -->
+            <div class="form-group">
+                <label for="batchCode">Batch Code</label>
+
+                <input
+                    type="text"
+                    id="batchCode"
+                    placeholder="Enter your batch code"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    required
+                    aria-describedby="batchCodeMessage">
+
+                <small
+                    id="batchCodeMessage"
+                    class="batch-message"
+                    aria-live="polite">
+                    Enter the valid batch code to enable registration.
+                </small>
+            </div>
+
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="nameInput">Full Name</label>
+
+                <input
+                    type="text"
+                    id="nameInput"
+                    name="entry.1215900612"
+                    placeholder="Enter your full name"
+                    required>
+            </div>
+
+            <!-- Country -->
+            <div class="form-group">
+                <label for="countryInput">Country</label>
+
+                <input
+                    type="text"
+                    id="countryInput"
+                    name="entry.2068278968"
+                    placeholder="e.g. India, Singapore"
+                    required>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label for="categorySelect">Category</label>
+
+                <select
+                    id="categorySelect"
+                    name="entry.38679720"
+                    required>
+                    <option value="" disabled selected>
+                        Select your category
+                    </option>
+                    <option value="Working Professional">
+                        Working Professional
+                    </option>
+                    <option value="School Student">
+                        School Student
+                    </option>
+                    <option value="College Student">
+                        College Student
+                    </option>
+                    <option value="Educator">
+                        Educator
+                    </option>
+                </select>
+            </div>
+
+            <!-- WhatsApp Number -->
+            <div class="form-group">
+                <label for="whatsappInput">WhatsApp Number</label>
+
+                <input
+                    type="tel"
+                    id="whatsappInput"
+                    name="entry.995387167"
+                    placeholder="e.g. +91 9876543210"
+                    required>
+            </div>
+
+            <!-- Modules -->
+            <div class="form-group">
+                <label>
+                    Choose the Modules (Select one or more)
+                </label>
+
+                <div class="checkbox-group">
+
+                    <label class="checkbox-label">
+                        <input
+                            type="checkbox"
+                            name="entry.338072554"
+                            value="Introduction to Python">
+                        Introduction to Python
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input
+                            type="checkbox"
+                            name="entry.338072554"
+                            value="Object Oriented Programming">
+                        Object Oriented Programming
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input
+                            type="checkbox"
+                            name="entry.338072554"
+                            value="Pygame">
+                        Pygame
+                    </label>
+
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button
+                type="submit"
+                id="submitBtn"
+                disabled>
+                Validate Batch Code First
+            </button>
+
+        </form>
+
+        <!-- Success Message -->
+        <div class="success-container" id="successContainer">
+
+            <div class="success-icon">✓</div>
+
+            <h3>Successfully Registered!</h3>
+
+            <p>
+                Thank you for enrolling in the Free Python Course.
+                Your details have been recorded successfully.
+            </p>
+
+            <button
+                type="button"
+                class="btn-secondary"
+                onclick="resetForm()">
+                Register Another Participant
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Closed Message Container -->
+    <div class="closed-container" id="closedContainer">
+        Currently no registration is open!
     </div>
 
 </div>
@@ -624,28 +642,25 @@
         return new Date() > REGISTRATION_DEADLINE;
     }
 
-    function validateBatchCode() {
-        const enteredCode = batchCodeInput.value.trim();
-
-        // Check if deadline has passed
+    function checkDeadline() {
         if (isRegistrationClosed()) {
-            batchCodeInput.disabled = true;
-            submitBtn.disabled = true;
-            batchCodeMessage.textContent = '✗ Registration for batch Py3110 closed at 3:00 PM on 31st Oct 2026.';
-            batchCodeMessage.style.color = '#dc2626';
-            submitBtn.innerText = 'Registration Closed';
-            return false;
+            document.getElementById('activeFormContent').style.display = 'none';
+            document.getElementById('closedContainer').style.display = 'block';
+            return true;
         }
+        return false;
+    }
 
+    function validateBatchCode() {
+        if (checkDeadline()) return false;
+
+        const enteredCode = batchCodeInput.value.trim();
         const isValid = enteredCode === VALID_BATCH_CODE;
 
-        // Never enable submission while a request is in progress.
         submitBtn.disabled = !isValid || submitted;
 
         if (isValid) {
-            batchCodeMessage.textContent =
-                '✓ Valid batch code. You can register now.';
-
+            batchCodeMessage.textContent = '✓ Valid batch code. You can register now.';
             batchCodeMessage.style.color = '#059669';
 
             if (!submitted) {
@@ -670,12 +685,8 @@
 
     batchCodeInput.addEventListener('input', validateBatchCode);
 
-    // Validate again when the form is submitted.
     function handleRegistrationSubmit() {
-        if (isRegistrationClosed()) {
-            alert('Registration for this batch has closed.');
-            return false;
-        }
+        if (checkDeadline()) return false;
 
         if (!validateBatchCode()) {
             batchCodeInput.focus();
@@ -687,7 +698,6 @@
         }
 
         submitted = true;
-
         submitBtn.disabled = true;
         submitBtn.innerText = 'Submitting...';
 
@@ -725,9 +735,7 @@
         if (!submitted) return;
 
         document.getElementById('registrationForm').style.display = 'none';
-
         document.getElementById('formSubtitle').style.display = 'none';
-
         document.getElementById('successContainer').style.display = 'block';
 
         setTimeout(fetchRegistrationStats, 3500);
@@ -738,23 +746,17 @@
     // ==========================================
 
     function resetForm() {
-        if (isRegistrationClosed()) return;
+        if (checkDeadline()) return;
 
         submitted = false;
-
         const formElement = document.getElementById('registrationForm');
 
         formElement.reset();
-
         formElement.style.display = 'block';
-
         document.getElementById('formSubtitle').style.display = 'block';
-
         document.getElementById('successContainer').style.display = 'none';
 
-        // Reset the batch-code validation.
         validateBatchCode();
-
         batchCodeInput.focus();
     }
 
@@ -771,14 +773,15 @@
             }
 
             const csvText = await response.text();
-
             parseCSV(csvText);
 
         } catch (error) {
             console.error('Error fetching stats:', error);
 
-            document.getElementById('statsBanner').textContent =
-                '📊 Registration statistics temporarily unavailable.';
+            const banner = document.getElementById('statsBanner');
+            if (banner) {
+                banner.textContent = '📊 Registration statistics temporarily unavailable.';
+            }
         }
     }
 
@@ -908,8 +911,11 @@
             moduleNames
         };
 
-        document.getElementById('statsBanner').innerHTML =
-            `📊 Live Registration Status: <b>${total} Enrolled</b> (Click for breakdown)`;
+        const banner = document.getElementById('statsBanner');
+        if (banner) {
+            banner.innerHTML =
+                `📊 Live Registration Status: <b>${total} Enrolled</b> (Click for breakdown)`;
+        }
     }
 
     // ==========================================
@@ -1002,10 +1008,10 @@
     });
 
     // Initial state check for deadline and batch code.
-    validateBatchCode();
-
-    // Load live registration statistics.
-    fetchRegistrationStats();
+    if (!checkDeadline()) {
+        validateBatchCode();
+        fetchRegistrationStats();
+    }
 </script>
 
 </body>
